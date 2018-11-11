@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +16,9 @@ public class Country {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false, updatable = false)
 	long idCountry;
+	@Column(name = "nameCountry", nullable = false)
 	String nameCountry;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "country")

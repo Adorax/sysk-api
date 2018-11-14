@@ -1,6 +1,9 @@
 package tech.maret.syskapi.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,18 +14,35 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Rate {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false, updatable = false)
+	long idRate;
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="idPlace")
+	@JoinColumn(name="idPlace", nullable = false)
 	Place place;
-	@Id
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="idUser")
+	@JoinColumn(name="idUser", nullable = false)
 	User user;
-	boolean like;
+	@Column(name = "likePlace", nullable = false)
+	boolean likePlace;
 	
 	
+	/**
+	 * @return the idRate
+	 */
+	public long getIdRate() {
+		return idRate;
+	}
+
+	/**
+	 * @param idRate the idRate to set
+	 */
+	public void setIdRate(long idRate) {
+		this.idRate = idRate;
+	}
+
 	/**
 	 * 
 	 */
@@ -33,10 +53,10 @@ public class Rate {
 	 * Create a rate
 	 * 		like true if thumb up and false if thumb down
 	 */
-	public Rate(Place place, User user, boolean like) {
+	public Rate(Place place, User user, boolean likePlace) {
 		this.place = place;
 		this.user = user;
-		this.like = like;
+		this.likePlace = likePlace;
 	}
 
 	/**
@@ -71,14 +91,14 @@ public class Rate {
 	 * @return the like
 	 */
 	public boolean isLike() {
-		return like;
+		return likePlace;
 	}
 
 	/**
 	 * @param like the like to set
 	 */
-	public void setLike(boolean like) {
-		this.like = like;
+	public void setLike(boolean likePlace) {
+		this.likePlace = likePlace;
 	}
 	
 	

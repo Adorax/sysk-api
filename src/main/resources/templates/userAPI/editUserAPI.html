@@ -1,0 +1,37 @@
+<!DOCTYPEhtml>
+<htmlxmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>SYSK - Add user</title>
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<body>
+		<h1>Add an user</h1>
+		
+		<div>
+			<form th:object="${user}" th:action="@{/admin/userapi/edit/{id}(id=${user.idUser})}" action="#" method="post">
+				<label for="username">Username:</label>
+				<input type="text" id="username" class="form-control" th:field="*{username}" />
+				<label for="role">Role:</label>
+				<input type="text" id="role" class="form-control" th:field="*{role}" />		
+				<input type="submit" class="form-control btn btn-primary" id="submit" value="Save" disabled></input>
+			</form>
+		</div>
+		<script>
+			document.getElementById('username').addEventListener('input', checkPassword);
+			document.getElementById('role').addEventListener('input', checkPassword);
+			
+			function checkPassword() {
+			  let usr = document.getElementById('username').value;
+			  let rl = document.getElementById('role').value;
+			  if (usr.length > 1 && rl.length > 1) {
+			  console.log("ok");
+			    document.getElementById('submit').disabled = false;
+			  } else {
+			    document.getElementById('submit').disabled = true;
+			  }
+			}
+		</script>
+	</body>
+</html>

@@ -8,6 +8,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface RateRepository extends CrudRepository<Rate, Long> {
-	List<Rate> findByLike(@Param("like") String like);
+	List<Rate> findByUser(@Param("user") String user);
 
 }

@@ -21,17 +21,18 @@ public class Place {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false, updatable = false)
 	long idPlace;
+	@Column(name = "namePlace", nullable = false)
 	String namePlace;
+	@Column(name = "address", nullable = false)
 	String address;
+	@Column(name = "description", nullable = false, columnDefinition = "TEXT")
 	String description;
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="idCity")
+	@JoinColumn(name="idCity", nullable = false)
 	City city;
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name="idPlace")
-	TypePlace typePlace;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
+	List<PlaceCategory> placeCategory;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
 	List<Pic> pics;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
@@ -40,12 +41,12 @@ public class Place {
 	public Place() {
 	}
 
-	public Place(String namePlace, String address, String description, City city, TypePlace typePlace) {
+	public Place(String namePlace, String address, String description, City city, List<PlaceCategory> placeCategory) {
 		this.namePlace = namePlace;
 		this.address = address;
 		this.description = description;
 		this.city = city;
-		this.typePlace = typePlace;
+		this.placeCategory = placeCategory;
 	}
 
 	public long getIdPlace() {
@@ -88,12 +89,12 @@ public class Place {
 		this.city = city;
 	}
 
-	public TypePlace getTypePlace() {
-		return typePlace;
+	public List<PlaceCategory> getTypePlace() {
+		return placeCategory;
 	}
 
-	public void setTypePlace(TypePlace typePlace) {
-		this.typePlace = typePlace;
+	public void setTypePlace(List<PlaceCategory> placeCategory) {
+		this.placeCategory = placeCategory;
 	}
 
 	public List<Pic> getPics() {

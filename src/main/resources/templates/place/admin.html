@@ -24,7 +24,6 @@
 					<th>Username</th>
 					<th>Role</th>
 					<th></th>
-					<th></th>
 					<th></th>						
 				</tr>
 				<tr th:each = "user : ${users}">
@@ -32,7 +31,6 @@
 					<td th:text="${user.role}"></td>
 					<!-- Note! In the case of in-memory users use hasAuthority instead of hasRole. -->
 					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/admin/userapi/delete/{id}(id=${user.idUser})}" class="btn btn-danger">Delete</a></td>
-					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/admin/userapi/newpwd/{id}(id=${user.idUser})}" class="btn btn-warning">Change password</a></td>
 					<td><a th:href="@{/admin/userapi/edit/{id}(id=${user.idUser})}" class="btn btn-warning">Edit</a></td>
 				</tr>
 			</table>

@@ -3,6 +3,7 @@ package tech.maret.syskapi.domain;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,11 +19,13 @@ public class City {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false, updatable = false)
 	long idCity;
+	@Column(name = "nameCity", nullable = false)
 	String nameCity;
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="idCountry")
+	@JoinColumn(name="idCountry", nullable = false)
 	Country country;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "city")
 	List<Place> places;

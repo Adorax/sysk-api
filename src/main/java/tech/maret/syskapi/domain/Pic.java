@@ -21,11 +21,13 @@ public class Pic {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false, updatable = false)
 	long idPic;
+	@Column(name = "linkPic", nullable = false)
 	String linkPic;
+	@Column(name = "isBanner", nullable = false)
 	boolean isBanner;
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="idPlace")
+	@JoinColumn(name="idPlace", nullable = false)
 	Place place;
 
 	public Pic() {

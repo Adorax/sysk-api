@@ -10,39 +10,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 @Entity
-public class User {
-	
+public class UserAPI {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, updatable = false)
 	long idUser;
 	@Column(name = "username", nullable = false, unique = true)
 	String username;
-	@Column(name = "email", nullable = false, unique = true)
-	String email;
 	@Column(name = "password", nullable = false)
 	String passwordHash;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	List<Rate> rates;
+	@Column(name = "role", nullable = false)
+	String role;
 
 	/**
 	 * 
 	 */
-	public User() {
+	public UserAPI() {
 	}
 
 	/**
 	 * @param username
-	 * @param email
 	 * @param passwordHash
 	 * @param role
 	 */
-	public User(String username, String email, String passwordHash) {
+	public UserAPI(String username, String passwordHash, String role) {
 		this.username = username;
-		this.email = email;
-		this.passwordHash = passwordHash;
+		this.passwordHash = BCrypt.hashpw(passwordHash, BCrypt.gensalt(10));		
+		this.role = role;
 	}
 
 	/**
@@ -74,34 +71,6 @@ public class User {
 	}
 
 	/**
-	 * @return the rates
-	 */
-	public List<Rate> getRates() {
-		return rates;
-	}
-
-	/**
-	 * @param rates the rates to set
-	 */
-	public void setRates(List<Rate> rates) {
-		this.rates = rates;
-	}
-
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
 	 * @return the passwordHash
 	 */
 	public String getPasswordHash() {
@@ -112,7 +81,26 @@ public class User {
 	 * @param passwordHash the passwordHash to set
 	 */
 	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = BCrypt.hashpw(passwordHash, BCrypt.gensalt(10));
+	}
+	
+	public void setPasswordWithoutHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
+
+	/**
+	 * @return the role
+	 */
+	public String getRole() {
+		return role;
+	}
+
+	/**
+	 * @param role the role to set
+	 */
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 	
 }

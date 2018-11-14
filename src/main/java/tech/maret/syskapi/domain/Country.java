@@ -18,6 +18,9 @@ public class Country {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false, updatable = false)
 	long idCountry;
+	@Column(name = "codeCountry", nullable = false, length=2)
+	String codeCountry;
+	
 	@Column(name = "nameCountry", nullable = false)
 	String nameCountry;
 	

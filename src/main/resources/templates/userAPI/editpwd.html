@@ -1,0 +1,39 @@
+<!DOCTYPEhtml>
+<htmlxmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>SYSK - Add user</title>
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<body>
+		<h1>Add an user</h1>
+		
+		<div>
+			<form th:object="${user}" th:action="@{/admin/userapi/newpwd/{id}(id=${user.idUser})}" action="#" method="post">
+				<span th:text="*{username}"></span>
+
+				<label for="password">New Password:</label>
+				<input type="password" class="form-control" id="passwordHash" th:field="*{passwordHash}" />
+				<label for="passwordRepeat">Repeat password:</label>
+				<input type="password" class="form-control" id="passwordRepeat" />			
+				<input type="submit" class="form-control btn btn-primary" id="submit" value="Save" disabled></input>
+			</form>
+		</div>
+		<script>
+			document.getElementById('passwordHash').addEventListener('input', checkPassword);
+			document.getElementById('passwordRepeat').addEventListener('input', checkPassword);
+			
+			function checkPassword() {
+			  let pwd = document.getElementById('passwordHash').value;
+			  let pwdR = document.getElementById('passwordRepeat').value;
+			  if (pwd.length > 3 && pwd == pwdR) {
+			  console.log("ok");
+			    document.getElementById('submit').disabled = false;
+			  } else {
+			    document.getElementById('submit').disabled = true;
+			  }
+			}
+		</script>
+	</body>
+</html>

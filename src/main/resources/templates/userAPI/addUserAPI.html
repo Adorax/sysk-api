@@ -1,13 +1,32 @@
 <!DOCTYPEhtml>
 <htmlxmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>SYSK - Add user</title>
+		<title>SYSK - Add userAPI</title>
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 	</head>
 	<body>
-		<h1>Add an user</h1>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarToggler">
+			   	<a class="navbar-brand" th:href="@{/admin}">SYSK-Admin</a>
+			    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				    <li class="nav-item active"><a class="nav-link" th:href="@{/admin}">UserAPI <span class="sr-only">(current)</span></a></li>
+				    <li class="nav-item"><a class="nav-link" th:href="@{/admin/user}">App User</a></li>
+			      	<li class="nav-item"><a class="nav-link" th:href="@{/admin/place}">Place</a></li>
+			      	<li class="nav-item"><a class="nav-link" th:href="@{/admin/city}">City</a></li>
+			      	<li class="nav-item"><a class="nav-link" th:href="@{/admin/category}">Category</a></li>
+			    </ul> 	  	
+			  	<form th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0">
+					<input type="submit" value="Sign Out" class="form-control mr-sm-2"/>
+				</form>	  
+			</div>
+		</nav>	
+		<h1>Add an user for the API managment</h1>
 		
 		<div>
 			<form th:object="${user}" th:action="@{save}" action="#" method="post">
@@ -18,7 +37,7 @@
 				<label for="password">Password:</label>
 				<input type="password" class="form-control" id="passwordHash" th:field="*{passwordHash}" />
 				<label for="passwordRepeat">Repeat password:</label>
-				<input type="password" class="form-control" id="passwordRepeat" th:field="{pwdRpt}" />			
+				<input type="password" class="form-control" id="passwordRepeat" />			
 				<input type="submit" class="form-control btn btn-primary" id="submit" value="Save" disabled></input>
 			</form>
 		</div>

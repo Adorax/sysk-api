@@ -1,7 +1,7 @@
 <!DOCTYPEhtml>
 <htmlxmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>SYSK - Edit password</title>
+		<title>SYSK - Edit user</title>
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -14,8 +14,8 @@
 			<div class="collapse navbar-collapse" id="navbarToggler">
 			   	<a class="navbar-brand" th:href="@{/admin}">SYSK-Admin</a>
 			    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				    <li class="nav-item active"><a class="nav-link" th:href="@{/admin}">UserAPI <span class="sr-only">(current)</span></a></li>
-				    <li class="nav-item"><a class="nav-link" th:href="@{/admin/user}">App User</a></li>
+				    <li class="nav-item"><a class="nav-link" th:href="@{/admin}">UserAPI</a></li>
+				    <li class="nav-item active"><a class="nav-link" th:href="@{/admin/user}">App User <span class="sr-only">(current)</span></a></li>
 			      	<li class="nav-item"><a class="nav-link" th:href="@{/admin/place}">Place</a></li>
 			      	<li class="nav-item"><a class="nav-link" th:href="@{/admin/city}">City</a></li>
 			      	<li class="nav-item"><a class="nav-link" th:href="@{/admin/category}">Category</a></li>
@@ -25,27 +25,25 @@
 				</form>	  
 			</div>
 		</nav>	
-		<h1>Edit password</h1>
-		
+	
+		<h1>Edit an user</h1>		
 		<div>
-			<form th:object="${user}" th:action="@{/admin/userapi/newpwd/{id}(id=${user.idUser})}" action="#" method="post">
-				<span th:text="*{username}"></span>
-
-				<label for="password">New Password:</label>
-				<input type="password" class="form-control" id="passwordHash" th:field="*{passwordHash}" />
-				<label for="passwordRepeat">Repeat password:</label>
-				<input type="password" class="form-control" id="passwordRepeat" />			
-				<input type="submit" class="form-control btn btn-primary" id="submit" value="Save" disabled></input>
+			<form th:object="${user}" th:action="@{/admin/user/edit/{id}(id=${user.idUser})}" action="#" method="post">
+				<label for="username">Username:</label>
+				<input type="text" id="username" class="form-control" th:field="*{username}" />
+				<label for="email">Email:</label>
+				<input type="text" id="email" class="form-control" th:field="*{email}" />		
+				<input type="submit" class="form-control btn btn-primary" id="submit" value="Save"></input>
 			</form>
 		</div>
 		<script>
-			document.getElementById('passwordHash').addEventListener('input', checkPassword);
-			document.getElementById('passwordRepeat').addEventListener('input', checkPassword);
+			document.getElementById('username').addEventListener('input', checkPassword);
+			document.getElementById('email').addEventListener('input', checkPassword);
 			
 			function checkPassword() {
-			  let pwd = document.getElementById('passwordHash').value;
-			  let pwdR = document.getElementById('passwordRepeat').value;
-			  if (pwd.length > 3 && pwd == pwdR) {
+			  let usr = document.getElementById('username').value;
+			  let em = document.getElementById('email').value;
+			  if (usr.length > 1 && em.length > 1) {
 			  console.log("ok");
 			    document.getElementById('submit').disabled = false;
 			  } else {

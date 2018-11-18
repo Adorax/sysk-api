@@ -6,7 +6,7 @@
 	<groupId>tech.maret</groupId>
 	<artifactId>sysk-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>sysk-api</name>
 	<description>sysk project</description>
@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<tomcat.version>8.0.3</tomcat.version>
 	</properties>
 
 	<dependencies>
@@ -64,8 +65,17 @@
 		<dependency>
         	<groupId>mysql</groupId>
         	<artifactId>mysql-connector-java</artifactId>
-    	</dependency>	
-		
+    	</dependency>
+    	<dependency>
+        	<groupId>com.h2database</groupId>
+        	<artifactId>h2</artifactId>
+        	<scope>test</scope>
+    	</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

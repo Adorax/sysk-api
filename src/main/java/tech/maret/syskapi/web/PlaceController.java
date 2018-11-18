@@ -21,16 +21,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import tech.maret.syskapi.domain.CategoryRepository;
+import tech.maret.syskapi.domain.CityRepository;
 import tech.maret.syskapi.domain.PicRepository;
 import tech.maret.syskapi.domain.Place;
 import tech.maret.syskapi.domain.PlaceCategoryRepository;
 import tech.maret.syskapi.domain.PlaceRepository;
 import tech.maret.syskapi.domain.User;
+import tech.maret.syskapi.domain.UserAPI;
 import tech.maret.syskapi.domain.UserRepository;
 
 
 @Controller
-@RequestMapping("/api/place")
+@RequestMapping("/admin/place")
 public class PlaceController {
 	
 	@Autowired
@@ -41,9 +43,90 @@ public class PlaceController {
 	PlaceCategoryRepository placeCatRepo;
 	@Autowired
 	CategoryRepository catRepo;
+	@Autowired
+	CityRepository cityRepo;
 	//Bean entityManagerFactory;
 	
 	// --- Admin section -----------------------------------------------------------------------
+	
+	/**
+	 * Show the place page
+	 * @param model
+	 * @return place page
+	 */
+	@GetMapping("")
+	public String place(Model model) {
+		model.addAttribute("places", placeRepo.findAll());
+		return "place/place";
+	}
+	
+	/**
+	 * show page to add a user
+	 * @param model
+	 * @return addplace page
+	 */
+	@GetMapping("/create")
+	public String addPlace(Model model) {
+		model.addAttribute("place", new Place());
+		model.addAttribute("city", cityRepo.findAll());
+		return "place/addplace";
+	}
+	
+	/**
+	 * Save the new place receive in param
+	 * @param place
+	 * @return redirect to admin page
+	 */
+	@PostMapping("/save")
+	public String savePlace(Place place){
+		placeRepo.save(place);
+		return "redirect:/admin/place";
+	}
+	
+	/**
+	 * delete place func
+	 * @param id place in the path and Model
+	 * @return redirect place page
+	 */
+	@GetMapping(value = "/delete/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String deletePlace(@PathVariable("id") Long idPlace, Model model) {
+		placeRepo.deleteById(idPlace);
+		return "redirect:/admin/place";
+	}
+	
+	/**
+	 * go to page for updating place 
+	 * @param id place in the path and Model
+	 * @return  edit page
+	 */	
+	@GetMapping(value = "/edit/{id}")
+	public String updatePlace(@PathVariable("id") Long idPlace, Model model) {
+		Place place = placeRepo.findById(idPlace).orElse(null);
+		if(place == null) { 
+			System.out.println("user with id: "+idPlace+" not find");
+			return "redirect:/admin/place";
+		}
+		model.addAttribute("place", place);
+		model.addAttribute("city", cityRepo.findAll());
+		return "place/editplace";
+	}
+	
+	/**
+	 * edit data of user 
+	 * @param id user in the path and UserAPI
+	 * @return redirect admin page
+	 */
+	@PostMapping("/edit/{id}")
+	public String editPlace(@PathVariable("id") Long idPlace, Place newPlace){
+		Place oldPlace = placeRepo.findById(idPlace).orElse(null) ;
+		oldPlace.setNamePlace(newPlace.getNamePlace());
+		oldPlace.setAddress(newPlace.getAddress());
+		oldPlace.setDescription(newPlace.getDescription());
+		oldPlace.setCity(newPlace.getCity());
+		placeRepo.save(oldPlace);
+		return "redirect:/admin/place";
+	}
 	
 	
 	// --- API ---------------------------------------------------------------------------------

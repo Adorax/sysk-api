@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Category {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, updatable = false)
 	long idCategory;
 	@Column(name = "categoryName", nullable = false)

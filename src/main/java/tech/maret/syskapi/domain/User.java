@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 @Entity
 public class User {
 	
@@ -42,7 +44,7 @@ public class User {
 	public User(String username, String email, String passwordHash) {
 		this.username = username;
 		this.email = email;
-		this.passwordHash = passwordHash;
+		this.passwordHash = BCrypt.hashpw(passwordHash, BCrypt.gensalt(10));
 	}
 
 	/**
@@ -112,6 +114,14 @@ public class User {
 	 * @param passwordHash the passwordHash to set
 	 */
 	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = BCrypt.hashpw(passwordHash, BCrypt.gensalt(10));
+	}
+	
+	/**
+	 * Set password already hash
+	 * @param passwordHash the passwordHash to set
+	 */
+	public void setPasswordWithoutHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
 	

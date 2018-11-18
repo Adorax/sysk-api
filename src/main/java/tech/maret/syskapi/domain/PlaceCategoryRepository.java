@@ -8,6 +8,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface PlaceCategoryRepository extends CrudRepository<PlaceCategory, Long> {
-	List<PlaceCategory> findByPlace(@Param("place") String place);
-	List<PlaceCategory> findByCategory(@Param("category") String category);
+	List<PlaceCategory> findByPlace(@Param("place") Place place);
+	List<PlaceCategory> findByCategory(@Param("category") Category category);
 }

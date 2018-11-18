@@ -5,7 +5,7 @@
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		
-		<title>SYSK - ADMIN</title>
+		<title>SYSK - Add category</title>
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -15,43 +15,42 @@
 			<div class="collapse navbar-collapse" id="navbarToggler">
 			   	<a class="navbar-brand" th:href="@{/admin}">SYSK-Admin</a>
 			    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				    <li class="nav-item active"><a class="nav-link" th:href="@{/admin}">UserAPI <span class="sr-only">(current)</span></a></li>
+				    <li class="nav-item"><a class="nav-link" th:href="@{/admin}">UserAPI</a></li>
 				    <li class="nav-item"><a class="nav-link" th:href="@{/admin/user}">App User</a></li>
 			      	<li class="nav-item"><a class="nav-link" th:href="@{/admin/place}">Place</a></li>
 			      	<li class="nav-item"><a class="nav-link" th:href="@{/admin/city}">City</a></li>
-			      	<li class="nav-item"><a class="nav-link" th:href="@{/admin/category}">Category</a></li>
+			      	<li class="nav-item active"><a class="nav-link" th:href="@{/admin/category}">Category <span class="sr-only">(current)</span></a></li>
 			    </ul> 	  	
 			  	<form th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0">
 					<input type="submit" value="Sign Out" class="form-control mr-sm-2"/>
 				</form>	  
 			</div>
-		</nav>		  
-		<div>
-			<h1>ADMIN - Users of API</h1>
-			<table class="table table-striped">
-				<tr>					
-					<th>Username</th>
-					<th>Role</th>
-					<th></th>
-					<th></th>
-					<th></th>						
-				</tr>
-				<tr th:each = "user : ${users}">
-					<td th:text="'- '+${user.username}"></td>
-					<td th:text="${user.role}"></td>
-					<!-- Note! In the case of in-memory users use hasAuthority instead of hasRole. -->
-					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/admin/userapi/delete/{id}(id=${user.idUser})}" class="btn btn-danger">Delete</a></td>
-					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/admin/userapi/newpwd/{id}(id=${user.idUser})}" class="btn btn-warning">Change password</a></td>
-					<td><a th:href="@{/admin/userapi/edit/{id}(id=${user.idUser})}" class="btn btn-warning">Edit</a></td>
-				</tr>
-			</table>
-			<a href="/admin/userapi/create" class="btn btn-success">Add an user</a>
-		</div>
+		</nav>
+		<h1>Add a category</h1>
 		
+		<div>
+			<form th:object="${category}" th:action="@{save}" action="#" method="post">
+				<label for="categoryName">name of the category:</label>
+				<input type="text" id="categoryName" class="form-control" th:field="*{categoryName}" />
+				<input type="submit" class="form-control btn btn-primary" id="submit" value="Save" disabled></input>
+			</form>
+		</div>
+		<script>
+			document.getElementById('categoryName').addEventListener('input', checkPassword);
+			
+			function checkPassword() {
+			  let nC = document.getElementById('categoryName').value;
+			  if (nC.length > 1) {
+			  console.log("ok");
+			    document.getElementById('submit').disabled = false;
+			  } else {
+			    document.getElementById('submit').disabled = true;
+			  }
+			}
+		</script>
 		
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	</body>
 </html>
-

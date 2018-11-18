@@ -30,8 +30,9 @@ public class Country {
 	public Country() {
 	}
 
-	public Country(String nameCountry) {
+	public Country(String codeCountry, String nameCountry) {
 		this.nameCountry = nameCountry;
+		this.codeCountry = codeCountry;
 	}
 
 	public long getIdCountry() {

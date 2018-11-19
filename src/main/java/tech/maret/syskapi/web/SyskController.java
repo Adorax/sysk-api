@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tech.maret.syskapi.domain.User;
+import tech.maret.syskapi.domain.UserAPI;
 import tech.maret.syskapi.domain.UserRepository;
 
 
@@ -23,13 +24,14 @@ public class SyskController {
 	
 	// --- Admin section -----------------------------------------------------------------------
 	
-	//Login redirection
-	@GetMapping("/login")
-	public String login() { return "login";	}
-	
-	
-	
-	
-	// --- API -----------------------------------------------------------------------
+	/**
+	 * Show the admin page
+	 * @param 
+	 * @return redirect admin page
+	 */
+	@GetMapping("")
+	public String admin(){
+		return "redirect:/admin";
+	}
 	
 }

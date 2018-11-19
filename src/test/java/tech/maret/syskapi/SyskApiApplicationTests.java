@@ -24,6 +24,8 @@ public class SyskApiApplicationTests {
 	private PlaceController plC;
 	@Autowired
 	private UserController usrC;
+	@Autowired
+	private SyskController syskC;
 	
 	@Test
 	public void contextLoads() {
@@ -32,6 +34,7 @@ public class SyskApiApplicationTests {
 		assertThat(citC).isNotNull();
 		assertThat(plC).isNotNull();
 		assertThat(usrC).isNotNull();
+		assertThat(syskC).isNotNull();
 	}
 
 }

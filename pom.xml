@@ -6,7 +6,7 @@
 	<groupId>tech.maret</groupId>
 	<artifactId>sysk-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>sysk-api</name>
 	<description>sysk project</description>

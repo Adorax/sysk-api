@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tech.maret.syskapi.domain.Category;
@@ -46,8 +48,9 @@ public class APIController {
 	 * @param city and category in url
 	 * @return places for this city and category
 	 */
-	@GetMapping(value = "/places/city={city}&category={category}")
-	public @ResponseBody List<Place> place(@PathVariable("city") String city,@PathVariable("category") String category) {
+	@RequestMapping(value="/places", method = RequestMethod.GET)
+	//@GetMapping(value = "/place?city={city}&category={category}")
+	public @ResponseBody List<Place> place(@RequestParam("city") String city,@RequestParam("category") String category) {
 		System.out.println(categoryRepo.findPlaces(city, category));
 		return (List<Place>) categoryRepo.findPlaces(city, category);
 	}

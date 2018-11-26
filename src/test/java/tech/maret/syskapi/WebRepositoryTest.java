@@ -160,6 +160,30 @@ public class WebRepositoryTest {
 	  }	  
 
 // --------- FIND ---------------------------------------------------------------------------------------------------	  	  
+	  
+	  
+	  @Test
+	  public void findCat() {	
+		  entityManager.persistAndFlush(new Country("DM", "foo"));
+	   	  entityManager.persistAndFlush(new City("Nyon", countRepository.findByNameCountry("foo")));
+		  entityManager.persistAndFlush(new Place("name", "address", "descpr", citRepository.findAll().iterator().next(),null));
+		  entityManager.persistAndFlush(new Category("TestCat"));
+		  PlaceCategory plCat = new PlaceCategory(plcRepository.findByNamePlace("name").get(0), catRepository.findByCategoryName("TestCat").get(0));
+		  entityManager.persistAndFlush(plCat);
+
+		  assertThat(catRepository.findCat("Nyon").length > 0);
+	  }	  
+	  @Test
+	  public void findPlaces() {	
+		  entityManager.persistAndFlush(new Country("DM", "foo"));
+	   	  entityManager.persistAndFlush(new City("Nyon", countRepository.findByNameCountry("foo")));
+		  entityManager.persistAndFlush(new Place("name", "address", "descpr", citRepository.findAll().iterator().next(),null));
+		  entityManager.persistAndFlush(new Category("TestCat"));
+		  PlaceCategory plCat = new PlaceCategory(plcRepository.findByNamePlace("name").get(0), catRepository.findByCategoryName("TestCat").get(0));
+		  entityManager.persistAndFlush(plCat);
+
+		  assertThat(catRepository.findPlaces("Nyon", "TestCat").size() > 0);
+	  }	 
 	  @Test
 	  public void findByCategoryName() {	
 		  Category cat = new Category("aCategory");

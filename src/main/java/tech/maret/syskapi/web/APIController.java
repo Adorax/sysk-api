@@ -35,7 +35,7 @@ public class APIController {
 	 * @param city in url
 	 * @return categoryNames for this city
 	 */
-	@GetMapping(value = "/category/{city}")
+	@GetMapping(value = "/categories/{city}")
 	public @ResponseBody String[] category(@PathVariable("city") String city) {
 		System.out.println(categoryRepo.findCat(city));
 		return (String[]) categoryRepo.findCat(city);

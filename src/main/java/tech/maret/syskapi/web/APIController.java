@@ -40,22 +40,24 @@ public class APIController {
 	 * @param city in url
 	 * @return categoryNames for this city
 	 */
+	/*
 	@GetMapping(value = "/categories/{city}")
 	public @ResponseBody String[] category(@PathVariable("city") String city) {
 		System.out.println(categoryRepo.findCat(city));
 		return (String[]) categoryRepo.findCat(city);
 	}
-	
+	*/
 	/**
 	 * Get Places for a city and a category
 	 * @param city and category in url
 	 * @return places for this city and category
 	 */
+	/*
 	@RequestMapping(value="/place", method = RequestMethod.GET)
 	public @ResponseBody List<Place> place(@RequestParam("city") String city,@RequestParam("category") String category) {
 		System.out.println(placeRepo.findPlaces(city, category));
 		return (List<Place>) placeRepo.findPlaces(city, category);
 	}
-
+		*/
 
 }

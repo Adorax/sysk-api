@@ -8,6 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import com.mysql.cj.xdevapi.JsonArray;
+
 import java.util.List;
 
 
@@ -25,4 +27,11 @@ public interface PlaceRepository extends CrudRepository<Place, Long> {
 			"JOIN Category c ON c.idCategory = pc.category\n" + 
 			"WHERE ci.nameCity=:city AND c.categoryName=:category")
 	List<Place> findPlaces(@Param("city") String city, @Param("category") String category);
+	
+	/*@Query("SELECT p, ci  FROM Place p\n" + 
+			"JOIN City ci ON p.city = ci.idCity\n" + 
+			"JOIN PlaceCategory pc ON p.idPlace = pc.place\n" + 
+			"JOIN Category c ON c.idCategory = pc.category\n" + 
+			"WHERE p.idPlace=:idPlace")
+	List<PlaceObj> getPlace(@Param("idPlace") long idPlace);*/
 }

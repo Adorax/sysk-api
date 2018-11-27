@@ -19,11 +19,4 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 			"WHERE ci.nameCity=:city")
 	String[] findCat(@Param("city") String city);
 	
-	@Query("SELECT p FROM Place p\n" + 
-			"JOIN City ci ON p.city = ci.idCity\n" + 
-			"JOIN PlaceCategory pc ON p.idPlace = pc.place\n" + 
-			"JOIN Category c ON c.idCategory = pc.category\n" + 
-			"WHERE ci.nameCity=:city AND c.categoryName=:category")
-	List<Place> findPlaces(@Param("city") String city, @Param("category") String category);
-	
 }

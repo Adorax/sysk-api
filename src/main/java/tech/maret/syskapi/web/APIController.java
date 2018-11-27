@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tech.maret.syskapi.domain.Category;
 import tech.maret.syskapi.domain.CategoryRepository;
 import tech.maret.syskapi.domain.Place;
+import tech.maret.syskapi.domain.PlaceRepository;
 
 
 
@@ -28,6 +29,8 @@ public class APIController {
 
 	@Autowired
 	CategoryRepository categoryRepo;
+	@Autowired
+	PlaceRepository placeRepo;	
 	//Bean entityManagerFactory;
 	
 	// --- Admin section -----------------------------------------------------------------------
@@ -48,11 +51,10 @@ public class APIController {
 	 * @param city and category in url
 	 * @return places for this city and category
 	 */
-	@RequestMapping(value="/places", method = RequestMethod.GET)
-	//@GetMapping(value = "/place?city={city}&category={category}")
+	@RequestMapping(value="/place", method = RequestMethod.GET)
 	public @ResponseBody List<Place> place(@RequestParam("city") String city,@RequestParam("category") String category) {
-		System.out.println(categoryRepo.findPlaces(city, category));
-		return (List<Place>) categoryRepo.findPlaces(city, category);
+		System.out.println(placeRepo.findPlaces(city, category));
+		return (List<Place>) placeRepo.findPlaces(city, category);
 	}
 
 

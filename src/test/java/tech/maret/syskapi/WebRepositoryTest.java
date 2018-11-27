@@ -182,7 +182,7 @@ public class WebRepositoryTest {
 		  PlaceCategory plCat = new PlaceCategory(plcRepository.findByNamePlace("name").get(0), catRepository.findByCategoryName("TestCat").get(0));
 		  entityManager.persistAndFlush(plCat);
 
-		  assertThat(catRepository.findPlaces("Nyon", "TestCat").size() > 0);
+		  assertThat(plcRepository.findPlaces("Nyon", "TestCat").size() > 0);
 	  }	 
 	  @Test
 	  public void findByCategoryName() {	

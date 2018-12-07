@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tech.maret.syskapi.domain.User;
+import tech.maret.syskapi.domain.UserAPI;
 import tech.maret.syskapi.domain.User;
 import tech.maret.syskapi.domain.UserRepository;
 import tech.maret.syskapi.domain.UserRepository;
@@ -91,7 +92,7 @@ public class UserController {
 			return "redirect:/admin/user";
 		}
 		model.addAttribute("user", user);
-		return "User/editUser";
+		return "user/editUser";
 	}
 	
 	/**
@@ -121,7 +122,7 @@ public class UserController {
 			return "redirect:/admin/user";
 		}
 		model.addAttribute("user", user);
-		return "User/editpwd";
+		return "user/editpwd";
 	}
 	
 	/**

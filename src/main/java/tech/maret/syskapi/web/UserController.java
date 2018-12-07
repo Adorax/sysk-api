@@ -92,7 +92,7 @@ public class UserController {
 			return "redirect:/admin/user";
 		}
 		model.addAttribute("user", user);
-		return "user/editUser";
+		return "user/edituser";
 	}
 	
 	/**

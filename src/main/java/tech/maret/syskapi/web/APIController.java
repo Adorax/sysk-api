@@ -68,9 +68,9 @@ public class APIController {
 			
 			if(BCrypt.checkpw(input.getPassword(), u.getPasswordHash())) {
 				return u;
-			}
+			} 
 		}
-		return null;
+		return new User();
 	}
 
 }

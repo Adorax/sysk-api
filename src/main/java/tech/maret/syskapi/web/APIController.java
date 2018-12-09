@@ -4,20 +4,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tech.maret.syskapi.domain.Category;
-import tech.maret.syskapi.domain.CategoryRepository;
-import tech.maret.syskapi.domain.Place;
-import tech.maret.syskapi.domain.PlaceRepository;
+import tech.maret.syskapi.domain.Credential;
+import tech.maret.syskapi.domain.User;
+import tech.maret.syskapi.domain.UserRepository;
 
 
 
@@ -28,9 +29,8 @@ public class APIController {
 	
 
 	@Autowired
-	CategoryRepository categoryRepo;
-	@Autowired
-	PlaceRepository placeRepo;	
+	UserRepository uRepo;
+
 	//Bean entityManagerFactory;
 	
 	// --- Admin section -----------------------------------------------------------------------
@@ -59,5 +59,18 @@ public class APIController {
 		return (List<Place>) placeRepo.findPlaces(city, category);
 	}
 		*/
+	
+	@PostMapping(value = "/login")
+	public @ResponseBody User login(@RequestBody Credential input){
+		System.out.println(input.getUsername());
+		User u = uRepo.findByUsername(input.getUsername());
+		if (u != null) {
+			
+			if(BCrypt.checkpw(input.getPassword(), u.getPasswordHash())) {
+				return u;
+			}
+		}
+		return null;
+	}
 
 }

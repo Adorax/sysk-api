@@ -19,11 +19,11 @@ public class Rate {
 	long idRate;
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="idPlace")
+	@JoinColumn(name="idPlace", nullable = false)
 	Place place;
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="idUser")
+	@JoinColumn(name="idUser", nullable = false)
 	User user;
 	@Column(name = "likePlace", nullable = false)
 	boolean likePlace;

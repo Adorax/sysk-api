@@ -16,7 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import tech.maret.syskapi.domain.CreateRate;
 import tech.maret.syskapi.domain.Credential;
+import tech.maret.syskapi.domain.Place;
+import tech.maret.syskapi.domain.PlaceRepository;
+import tech.maret.syskapi.domain.Rate;
+import tech.maret.syskapi.domain.RateRepository;
 import tech.maret.syskapi.domain.User;
 import tech.maret.syskapi.domain.UserRepository;
 
@@ -30,6 +35,10 @@ public class APIController {
 
 	@Autowired
 	UserRepository uRepo;
+	@Autowired
+	PlaceRepository pRepo;
+	@Autowired
+	RateRepository rRepo;
 
 	//Bean entityManagerFactory;
 	
@@ -71,6 +80,17 @@ public class APIController {
 			} 
 		}
 		return new User();
+	}
+	
+	@PostMapping(value = "/addRate")
+	public @ResponseBody Rate login(@RequestBody CreateRate input){
+		System.out.println(input.getIdUser());
+		User u = uRepo.findById(input.getIdUser()).orElse(null);
+		Place p = pRepo.findById(input.getIdPlace()).orElse(null);
+		if(u == null || p == null) { return new Rate(); }
+		Rate r = new Rate(p, u, input.isRate());
+		r = rRepo.save(r);
+		return r;
 	}
 
 }
